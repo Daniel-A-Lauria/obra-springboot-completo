@@ -11,8 +11,28 @@ public class MaterialService {
     public ConcretoResponse calcularVolumeConcreto(ConcretoRequest request) {
         // para fazer: incluir o código de calculo do concreto
 
-        return new ConcretoResponse(new BigDecimal(0),9999999,
+        int totalProcessado = 0;
+        BigDecimal volumeTotal = BigDecimal.ZERO;
+
+        for (ArestaRequest arestaRequest : request.getArestas()) {
+         totalProcessado++;
+         double surface = arestaRequest.getComprimento() * arestaRequest.getAlturaParede();
+
+         if (arestaRequest.isPossuiPorta()) {
+            surface -= arestaRequest.getAlturaPorta() * arestaRequest.getLarguraPorta();
+        }
+
+        if (arestaRequest.isPossuiJanela()) {
+            surface -= arestaRequest.getAlturaJanela() * arestaRequest.getLarguraJanela();
+        }
+        
+        double volume = surface * arestaRequest.getEspessura();
+        volumeTotal = volumeTotal.add(new BigDecimal(volume));
+        
+        }
+        return new ConcretoResponse(volumeTotal , totalProcessado ,
                 "Volume de concreto calculado com sucesso."
+
         );
     }
 
