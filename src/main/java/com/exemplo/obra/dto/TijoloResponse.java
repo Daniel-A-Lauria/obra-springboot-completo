@@ -2,7 +2,7 @@ package com.exemplo.obra.dto;
 
 import java.math.BigDecimal;
 
-// Essa classe é utilizada para modelar a estrutura de resposta do canclulo de consumo de tijolos a ser utilizado
+// Essa classe é utilizada para modelar a estrutura de resposta do calculo de consumo de tijolos a ser utilizado
 
 public class TijoloResponse {
 
