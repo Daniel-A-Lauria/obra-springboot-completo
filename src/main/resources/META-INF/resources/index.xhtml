@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="jakarta.faces.html"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>Calculadora de Obra - Simulação</title>
+</h:head>
+<h:body style="padding:20px; font-family: Arial, sans-serif;">
+    <h:form id="formObra">
+        <p:panel header="Simulação Orçamento Web (Planta)">
+            <p:messages id="mensagens" showDetail="true" closable="true" />
+            
+            <h:panelGrid columns="1" style="margin-bottom:15px;">
+                <h:outputText value="Selecione a imagem da planta para simulação:" style="font-weight:bold;" />
+                <p:fileUpload mode="simple" skinSimple="true" label="Escolher Imagem"/>
+            </h:panelGrid>
+            
+            <p:commandButton value="Rodar Simulação" 
+                             action="#{orcamentoController.simularDadosPreFeitos}" 
+                             update="formObra" 
+                             styleClass="ui-button-help"/>
+        </p:panel>
+        
+        <p:panel header="Resultados da Medição Automatizada" id="resultados" style="margin-top:20px;">
+            <h:panelGrid columns="1" cellpadding="5">
+                <h:outputText value="Volume de Concreto (Viga Baldrame): #{orcamentoController.concretoResponse.volumeTotal} m³" 
+                              rendered="#{not empty orcamentoController.concretoResponse}" 
+                              style="font-size:12pt; font-weight:bold; color:#2c5282;"/>
+                
+                <h:outputText value="Quantidade de Tijolos Necessários: #{orcamentoController.tijoloResponse.quantidadeTijolosComPerda} unidades" 
+                              rendered="#{not empty orcamentoController.tijoloResponse}"
+                              style="font-size:12pt; font-weight:bold; color:#2b6cb0;"/>
+                
+                <h:outputText value="Status: #{orcamentoController.tijoloResponse.mensagem}" 
+                              rendered="#{not empty orcamentoController.tijoloResponse}" 
+                              style="color:#4a5568; font-style: italic;"/>
+            </h:panelGrid>
+        </p:panel>
+    </h:form>
+</h:body>
+</html>
